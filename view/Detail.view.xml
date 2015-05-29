@@ -1,0 +1,160 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" controllerName="S1.view.Detail">
+	<Page id="detailPage" navButtonPress="onNavBack" title="{i18n&gt;detailTitle}" showNavButton="{device&gt;/isPhone}" showFooter="true" showHeader="true">
+		<content>
+			<ObjectHeader id="detailHeader" title="{CustomerName}" number="{PSPID}" introActive="false" titleActive="false" iconActive="false" numberUnit="{PSPTitle}">
+				<customData id="customData3">
+					<core:CustomData id="coreCustomData3" key="sapDtResourcePath" value="PSPHeader"/>
+				</customData>
+				<attributes id="detailAttributes">
+				</attributes>
+				<firstStatus id="detailStatus">
+					<ObjectStatus id="status" text="{Hours}">
+						<customData id="customData4">
+							<core:CustomData id="coreCustomData4" key="sapDtResourcePath" value="PSPHeader"/>
+						</customData>
+					</ObjectStatus>
+				</firstStatus>
+			</ObjectHeader>
+		    <List headerDesign="Plain" headerText="Details">
+		        <items>
+		            <StandardListItem type="Inactive" counter="0" title="Project lead" description="{PSPLead}" icon="" adaptTitleSize="false" iconInset="false"/>
+		            <StandardListItem type="Inactive" counter="0" title="QA Approver" description="{QAApprover}" icon="" adaptTitleSize="false" iconInset="false"/>
+		            <StandardListItem type="Inactive" counter="0" title="Status" description="{Status}" icon="" adaptTitleSize="false" iconInset="false"/>
+		            <StandardListItem type="Inactive" counter="0" title="Due Date" description="{DueDate}" icon="" adaptTitleSize="false" iconInset="false"/>		            
+	            </items>
+	            <customData>
+		            <core:CustomData key="sap-ui-fastnavgroup" value="true" writeToDom="true"/>
+	            </customData>
+            </List>
+			<IconTabBar id="idIconTabBar" expanded="{device&gt;/isNoPhone}">
+				<customData id="customData5">
+					<core:CustomData id="coreCustomData5" key="sapDtResourcePath" value="PSPHeader"/>
+				</customData>
+				<items id="detailsItems">
+					<IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint">
+						<content>
+							<Table id="PSPDocument" headerText="" updateFinished="onUpdateFinished" items="{path: 'PSPDocument',                parameters: {select: 'PSPID,DOC_Version,DOC_Status,DOC_Document,DOC_Editor,DOC_CheckinDate,UoM,Value'}}">
+								<columns>
+									<Column minScreenWidth="Tablet" demandPopin="true" width="10%">
+										<header>
+											<Label text="{/#PSPDocument/DOC_Document/@sap:label}"/>
+										</header>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true" width="15%">
+										<header>
+											<Label text="{/#PSPDocument/DOC_Version/@sap:label}"/>
+										</header>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right" width="15%">
+										<header>
+											<Label text="{/#PSPDocument/DOC_Status/@sap:label}"/>
+										</header>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right" width="15%">
+										<header>
+											<Label text="{/#PSPDocument/DOC_CheckinDate/@sap:label}"/>
+										</header>
+									</Column>
+									</columns>
+								<ColumnListItem id="DOC_List">
+									<cells>
+										<Text text="{path:'DOC_Document'}" class="sapMTableContentMargin"/>
+										<Text text="{path:'DOC_Version'}" class="sapMTableContentMargin"/>
+										<Text text="{path:'DOC_Status'}" class="sapMTableContentMargin"/>
+										<Text text="{path:'DOC_CheckinDate'}" class="sapMTableContentMargin"/>
+									</cells>
+								</ColumnListItem>
+							</Table>
+						</content>
+					</IconTabFilter>
+					<IconTabFilter id="iconTabFilter2" icon="sap-icon://enter-more">
+						<content>
+							<!--<f:SimpleForm id="iconTabFilter2form" minWidth="1024" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1">-->
+							<!--	<f:content>-->
+							<!--		<Label id="label4" text="{path: 'DOC_Version'}"/>-->
+							<!--		<Text id="text4" text="{path: 'DOC_Version'}" maxLines="0"/>-->
+							<!--		<Label id="label5" text=""/>-->
+							<!--		<Text id="text5" text="" maxLines="0"/>-->
+							<!--		<Label id="label6" text=""/>-->
+							<!--		<Text id="text6" text="" maxLines="0"/>-->
+							<!--		<Label id="label7" text=""/>-->
+							<!--		<Text id="text7" text="" maxLines="0"/>-->
+							<!--		<core:ExtensionPoint name="extIconTabFilterForm2"/>-->
+							<!--	</f:content>-->
+							<!--</f:SimpleForm>-->
+							<!--Estimate list-->
+							<Table id="PSPEstimate" key="selfInfo" headerText="" updateFinished="onUpdateFinished" items="{path: 'PSPEstimate',        parameters: {select: 'PSPID,EST_Version,EST_Status,EST_Item,EST_BC,EST_DEV,EST_QA,EST_ChangedDate'}}">
+								<columns>
+									<!--Product description-->
+									<!--<Column minScreenWidth="Tablet" demandPopin="true" width="10%">-->
+									<!--	<header>-->
+									<!--		<Label text="{/#PSPEstimate/EST_Version/@sap:label}"/>-->
+									<!--	</header>-->
+									<!--</Column>-->
+									<!--Delivery Date-->
+									<!--<Column minScreenWidth="Tablet" demandPopin="true" width="15%">-->
+									<!--	<header>-->
+									<!--		<Label text="{/#PSPEstimate/EST_Status/@sap:label}"/>-->
+									<!--	</header>-->
+									<!--</Column>-->
+									<!--Ordered Quantity-->
+									<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Left" width="15%">
+										<header>
+											<Label text="{/#PSPEstimate/EST_Item/@sap:label}"/>
+										</header>
+									</Column>
+									<!--Item price-->
+									<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right" width="15%">
+										<header>
+											<Label text="{/#PSPEstimate/EST_BC/@sap:label}"/>
+										</header>
+									</Column>
+									<!--Total value of the item-->
+									<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right" width="15%">
+										<header>
+											<Label text="{/#PSPEstimate/EST_DEV/@sap:label}"/>
+										</header>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right" width="15%">
+										<header>
+											<Label text="{/#PSPEstimate/EST_QA/@sap:label}"/>
+										</header>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right" width="15%">
+										<header>
+											<Label text="{/#PSPEstimate/EST_ChangedDate/@sap:label}"/>
+										</header>
+									</Column>
+								</columns>
+								<ColumnListItem id="EST_List">
+									<cells>
+										<!--<Text text="{path: 'EST_Version'}" class="sapMTableContentMargin"/>-->
+										<!--<Text text="{path: 'EST_Status'}" class="sapMTableContentMargin"/>-->
+										<Text text="{path: 'EST_Item'}" class="sapMTableContentMargin"/>
+										<Text text="{path: 'EST_BC'}" class="sapMTableContentMargin"/>
+										<Text text="{path: 'EST_DEV'}" class="sapMTableContentMargin"/>										
+										<Text text="{path: 'EST_QA'}" class="sapMTableContentMargin"/>										
+										<Text text="{path: 'EST_ChangedDate'}" class="sapMTableContentMargin"/>										
+									</cells>
+								</ColumnListItem>
+							</Table>
+						</content>
+					</IconTabFilter>
+					<core:ExtensionPoint name="extIconTabFilter"/>
+				</items>
+			</IconTabBar>
+			<core:ExtensionPoint name="extDetail"/>
+		</content>
+		<footer id="detailFooter">
+			<Toolbar id="detailToolbar">
+				<content>
+					<ToolbarSpacer id="toolbarSpacer"/>				
+					<Button id="approveButton" type="Accept" text="Approve" press="onOpenApprovalDialog"/>
+					<Button id="rejectButton" type="Reject" text="Reject" press="onOpenApprovalDialog"/>				
+					<Button id="actionButton" press="openActionSheet" icon="sap-icon://action"/>
+				</content>
+			</Toolbar>
+		</footer>
+		
+	<customData><core:CustomData key="sapDtResourcePath" value="PSPHeader"/></customData></Page>
+</mvc:View>

@@ -1,0 +1,46 @@
+[{
+	"PSPID": "K1024.2.18.7",
+	"DOC_Version": "1.3",
+	"DOC_Status": "Approved",
+	"DOC_Document": "Requirements",
+	"DOC_Editor": "Dave Muston",
+	"DOC_CheckinDate": "Friday, May 8 2015",
+	"UoM": "hours",
+	"Value": 156
+}, {
+	"PSPID": "K1006.3.16.7",
+	"DOC_Version": "1.2",
+	"DOC_Status": "Approval pending",
+	"DOC_Document": "Requirements",
+	"DOC_Editor": "John Declerc",
+	"DOC_CheckinDate": "Tuesday, February 24 2015",
+	"UoM": "hours",
+	"Value": 170
+}, {
+	"PSPID": "K1006.3.16.7",
+	"DOC_Version": "1.1",
+	"DOC_Status": "Revised",
+	"DOC_Document": "Requirements",
+	"DOC_Editor": "John Declerc",
+	"DOC_CheckinDate": "Friday, February 6 2015",
+	"UoM": "hours",
+	"Value": 0
+}, {
+	"PSPID": "K1006.3.16.7",
+	"DOC_Version": "1.0",
+	"DOC_Status": "Revised",
+	"DOC_Document": "Requirements",
+	"DOC_Editor": "John Declerc",
+	"DOC_CheckinDate": "Tuesday, January 20 2015",
+	"UoM": "hours",
+	"Value": 0
+}, {
+	"PSPID": "K1024.2.18.9",
+	"DOC_Version": "1.4",
+	"DOC_Status": "Finished",
+	"DOC_Document": "Requirements",
+	"DOC_Editor": "Tom Blanc",
+	"DOC_CheckinDate": "Thursday, 30 April 2015",
+	"UoM": "hours",
+	"Value": 170
+}]

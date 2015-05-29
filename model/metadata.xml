@@ -1,0 +1,114 @@
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices
+        xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema Namespace="S1" xml:lang="en"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="PSPHeader"  sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PSPID"/>
+                </Key>
+                <Property Name="PSPID" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="PSP Element"/>
+                <Property Name="PSPTitle" Type="Edm.String" MaxLength="25" sap:label="Project Title"/>
+                <Property Name="PSPLead" Type="Edm.String" MaxLength="20" sap:label="Project lead"/>
+                <Property Name="DueDate" Type="Edm.String" sap:label="PSP Element due date" sap:display-format="Date"/>
+                <Property Name="CustomerId" Type="Edm.String" MaxLength="10" sap:label="Customer no."/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="25" sap:label="Customer name"/>
+                <Property Name="Status" Type="Edm.String" MaxLength="18" sap:label="Status"/>
+                <Property Name="QAApprover" Type="Edm.String" MaxLength="25" sap:label="QA Approver"/>
+                <Property Name="Hours" Type="Edm.String" MaxLength="10" sap:label="hours" sap:semantics="unit-of-measure"/>                
+                <NavigationProperty Name="PSPDocument" Relationship="S1.PSPDocument_PSPHeader" FromRole="FromRole_PSPDocument_PSPHeader" ToRole="ToRole_PSPDocument_PSPHeader" sap:label="PSP Documents"/>
+				<NavigationProperty Name="PSPHeaders" Relationship="S1.PSPDocument_PSPHeader" FromRole="ToRole_PSPDocument_PSPHeader" ToRole="FromRole_PSPDocument_PSPHeader" sap:label="PSP Headers"/>
+                <NavigationProperty Name="PSPEstimate" Relationship="S1.PSPEstimate_PSPHeader" FromRole="FromRole_PSPEstimate_PSPHeader" ToRole="ToRole_PSPEstimate_PSPHeader" sap:label="PSP Estimates"/>				
+            </EntityType>
+            <EntityType Name="PSPDocument" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PSPID"/>
+                    <PropertyRef Name="DOC_Version"/>
+                </Key>
+                <Property Name="PSPID" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="PSP Element"/>
+                <Property Name="DOC_Version" Type="Edm.String" Nullable="false" MaxLength="6" sap:label="Version"/>
+                <Property Name="DOC_Status" Type="Edm.String" MaxLength="18" sap:label="Status"/>
+                <Property Name="DOC_Document" Type="Edm.String" MaxLength="25" sap:label="Document link"/>
+                <Property Name="DOC_Editor" Type="Edm.String" MaxLength="25" sap:label="Edited by"/>
+                <Property Name="DOC_CheckinDate" Type="Edm.String" sap:label="Check-In date" sap:display-format="Date"/>
+                <Property Name="UoM" Type="Edm.String" MaxLength="3" sap:label="hours" sap:semantics="unit-of-measure"/>
+                <Property Name="Value" Type="Edm.Decimal" Precision="0" Scale="2" sap:label="hours"/>
+                <NavigationProperty Name="PSPEstimate" Relationship="S1.PSPEstimate_PSPDocument" FromRole="FromRole_PSPEstimate_PSPDocument" ToRole="ToRole_PSPEstimate_PSPDocument" sap:label="PSP Estimates"/>
+                <NavigationProperty Name="PSPDocuments" Relationship="S1.PSPEstimate_PSPDocument" FromRole="ToRole_PSPEstimate_PSPDocument" ToRole="FromRole_PSPEstimate_PSPDocument" sap:label="PSP Documents"/>
+                </EntityType>
+            <EntityType Name="PSPEstimate" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PSPID"/>
+                    <PropertyRef Name="EST_Version"/>
+                    <PropertyRef Name="EST_Item"/>
+                </Key>
+                <Property Name="PSPID" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="PSP Element"/>
+                <Property Name="EST_Version" Type="Edm.String" Nullable="false" MaxLength="6" sap:label="Version"/>
+                <Property Name="EST_Status" Type="Edm.String" MaxLength="18" sap:label="Status"/>
+                <Property Name="EST_Item" Type="Edm.String" Nullable="false" MaxLength="25" sap:label="Work step"/>
+                <Property Name="EST_BC" Type="Edm.String" MaxLength="25" sap:label="Business consultant"/>
+                <Property Name="EST_DEV" Type="Edm.String" MaxLength="25" sap:label="Developer"/>
+                <Property Name="EST_QA" Type="Edm.String" MaxLength="25" sap:label="QA Approver"/>
+                <Property Name="EST_ChangedDate" Type="Edm.String" sap:label="Date changed" sap:display-format="Date"/>
+                <NavigationProperty Name="PSPEstimates" Relationship="S1.PSPEstimate_PSPDocument" FromRole="FromRole_PSPEstimate_PSPDocument" ToRole="ToRole_PSPEstimate_PSPDocument" sap:label="PSP Documents"/>
+                </EntityType>
+            <Association Name="PSPEstimate_PSPHeader" sap:content-version="1">
+                <End Type="S1.PSPHeader" Multiplicity="1" Role="FromRole_PSPEstimate_PSPHeader"/>
+                <End Type="S1.PSPEstimate" Multiplicity="*" Role="ToRole_PSPEstimate_PSPHeader"/>
+                <ReferentialConstraint>
+					<Principal Role="FromRole_PSPEstimate_PSPHeader">
+						<PropertyRef Name="PSPID"/>
+					</Principal>
+					<Dependent Role="ToRole_PSPEstimate_PSPHeader">
+						<PropertyRef Name="PSPID"/>
+					</Dependent>
+				</ReferentialConstraint>
+            </Association>
+            <Association Name="PSPDocument_PSPHeader" sap:content-version="1">
+                <End Type="S1.PSPHeader" Multiplicity="1" Role="FromRole_PSPDocument_PSPHeader"/>
+                <End Type="S1.PSPDocument" Multiplicity="*" Role="ToRole_PSPDocument_PSPHeader"/>
+                <ReferentialConstraint>
+					<Principal Role="FromRole_PSPDocument_PSPHeader">
+						<PropertyRef Name="PSPID"/>
+					</Principal>
+					<Dependent Role="ToRole_PSPDocument_PSPHeader">
+						<PropertyRef Name="PSPID"/>
+					</Dependent>
+				</ReferentialConstraint>                
+            </Association>
+            <Association Name="PSPEstimate_PSPDocument" sap:content-version="1">
+                <End Type="S1.PSPDocument" Multiplicity="1" Role="FromRole_PSPEstimate_PSPDocument"/>
+                <End Type="S1.PSPEstimate" Multiplicity="1" Role="ToRole_PSPEstimate_PSPDocument"/>
+                <ReferentialConstraint>
+					<Principal Role="FromRole_PSPEstimate_PSPDocument">
+						<PropertyRef Name="PSPID"/>
+						<PropertyRef Name="DOC_Version"/>
+					</Principal>
+					<Dependent Role="ToRole_PSPEstimate_PSPDocument">
+						<PropertyRef Name="PSPID"/>
+						<PropertyRef Name="EST_Version"/>
+					</Dependent>
+				</ReferentialConstraint>                
+            </Association>
+            <EntityContainer Name="S1" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="PSPHeader" EntityType="S1.PSPHeader" sap:label="PSPHeader" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="PSPDocument" EntityType="S1.PSPDocument" sap:label="PSPDocument" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="PSPEstimate" EntityType="S1.PSPEstimate" sap:label="PSPEstimate" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="PSPDocument_PSPHeader_AssocSet" Association="S1.PSPDocument_PSPHeader" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="PSPHeader" Role="FromRole_PSPDocument_PSPHeader"/>
+                    <End EntitySet="PSPDocument" Role="ToRole_PSPDocument_PSPHeader"/>
+                </AssociationSet>
+                <AssociationSet Name="PSPEstimate_PSPHeader_AssocSet" Association="S1.PSPEstimate_PSPHeader" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="PSPHeader" Role="FromRole_PSPEstimate_PSPHeader"/>
+                    <End EntitySet="PSPEstimate" Role="ToRole_PSPEstimate_PSPHeader"/>
+                </AssociationSet>
+                <AssociationSet Name="PSPEstimate_PSPDocument_AssocSet" Association="S1.PSPEstimate_PSPDocument" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="PSPDocument" Role="FromRole_PSPEstimate_PSPDocument"/>
+                    <End EntitySet="PSPEstimate" Role="ToRole_PSPEstimate_PSPDocument"/>
+                </AssociationSet>
+                </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

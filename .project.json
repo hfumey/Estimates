@@ -1,0 +1,28 @@
+{
+  "generation": [
+    {
+      "templateId": "ui5template.fioriMasterDetail",
+      "templateVersion": "1.4.0",
+      "dateTimeStamp": "Wed, 06 May 2015 15:11:04 GMT"
+    }
+  ],
+  "mockpreview": {
+    "mockUri": "",
+    "metadataFilePath": "model/metadata.xml",
+    "loadJSONFiles": true,
+    "loadCustomRequests": false,
+    "mockRequestsFilePath": ""
+  },
+  "translation": {
+    "translationDomain": "",
+    "supportedLanguages": "en,fr,de",
+    "defaultLanguage": "en",
+    "defaultI18NPropertyFile": "i18n.properties",
+    "resourceModelName": "i18n"
+  },
+  "dataBinding": {
+    "/view/Detail.view.xml": {
+      "entitySet": "PSPHeader"
+    }
+  }
+}
